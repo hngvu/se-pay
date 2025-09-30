@@ -5,8 +5,7 @@ import java.time.LocalDateTime;
 public record PaymentResponse (
     int id,
     int amount,
-    String orderId,
-    String userId,
+    String ref,
     String txnId,
     String status,
     LocalDateTime createdAt,

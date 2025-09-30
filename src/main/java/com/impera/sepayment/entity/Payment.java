@@ -1,10 +1,7 @@
 package com.impera.sepayment.entity;
 
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import lombok.experimental.FieldDefaults;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -18,11 +15,11 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @EntityListeners(AuditingEntityListener.class)
 @FieldDefaults(level = AccessLevel.PRIVATE)
+@Builder
 public class Payment {
     public enum  PaymentStatus {
         PENDING,
-        COMPLETED,
-        FAILED
+        COMPLETED
     }
 
     @Id
@@ -31,19 +28,16 @@ public class Payment {
 
     int amount;
 
-    String userId;
-
-    String orderId;
+    String ref;
 
     String txnId; // Transaction ID from the payment gateway
 
-    String returnUrl; // URL to redirect after payment
-
     @Lob
+    @Column(columnDefinition = "TEXT")
     String callBackData; // Data received from the payment gateway callback
 
     @Enumerated(EnumType.STRING)
-    PaymentStatus status;
+    PaymentStatus status = PaymentStatus.PENDING;
 
     @CreatedDate
     LocalDateTime createdAt;
