@@ -1,5 +1,5 @@
 # Use a base image with a Java Development Kit (JDK)
-FROM eclipse-temurin:17-jre-jammy AS build
+FROM eclipse-temurin:17-jre-alpine AS build
 
 # Set the working directory inside the container
 WORKDIR /app
