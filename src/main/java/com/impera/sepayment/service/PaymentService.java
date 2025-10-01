@@ -40,18 +40,14 @@ public class PaymentService {
                 .orElseThrow(() -> new RuntimeException("Payment not found with ref: " + ref));
 
         payment.setTxnId(request.id());
-        try {
-            payment.setCallBackData(objectMapper.writeValueAsString(request));
-        } catch (Exception e) {
-            throw new RuntimeException("Failed to serialize callback data", e);
-        }
+
         payment.setStatus(Payment.PaymentStatus.COMPLETED);
         paymentRepository.save(payment);
     }
 
     private String extractRefFromPaymentContent(String content) {
-        // Tìm REF theo format: REF + khoảng trắng + số
-        Pattern pattern = Pattern.compile("REF\\s*(\\d+)", Pattern.CASE_INSENSITIVE);
+        // Tìm REF theo format: REF + refCode
+        Pattern pattern = Pattern.compile("REF\\s*([A-Za-z0-9]+)");
         Matcher matcher = pattern.matcher(content);
         if (matcher.find()) {
             return matcher.group(1); // Lấy phần số sau REF

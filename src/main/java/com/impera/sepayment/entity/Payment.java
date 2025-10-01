@@ -32,10 +32,6 @@ public class Payment {
 
     String txnId; // Transaction ID from the payment gateway
 
-    @Lob
-    @Column(columnDefinition = "TEXT")
-    String callBackData; // Data received from the payment gateway callback
-
     @Enumerated(EnumType.STRING)
     @Builder.Default
     PaymentStatus status = PaymentStatus.PENDING;
