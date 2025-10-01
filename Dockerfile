@@ -1,22 +1,27 @@
-# Importing JDK and copying required files
-FROM openjdk:17-jdk AS build
+# Use a base image with a Java Development Kit (JDK)
+FROM openjdk:17-jdk-slim AS build
+
+# Set the working directory inside the container
 WORKDIR /app
+
+# Copy the Maven project files (pom.xml, src)
 COPY pom.xml .
-COPY src src
+COPY src ./src
 
-# Copy Maven wrapper
-COPY mvnw .
-COPY .mvn .mvn
-
-# Set execution permission for the Maven wrapper
-RUN chmod +x ./mvnw
+# Build the Spring Boot application
 RUN ./mvnw clean package -DskipTests
 
-# Stage 2: Create the final Docker image using OpenJDK 19
-FROM openjdk:17-jdk
-VOLUME /tmp
+# Use a smaller base image for the final production image
+FROM openjdk:17-jre-slim
 
-# Copy the JAR from the build stage
-COPY --from=build /app/target/sepayment.jar app.jar
-ENTRYPOINT ["java","-jar","/app.jar"]
+# Set the working directory
+WORKDIR /app
+
+# Copy the built JAR file from the build stage
+COPY --from=build /app/target/*.jar app.jar
+
+# Expose the port your Spring Boot application listens on (default is 8080)
 EXPOSE 8080
+
+# Define the command to run the application
+ENTRYPOINT ["java", "-jar", "app.jar"]
