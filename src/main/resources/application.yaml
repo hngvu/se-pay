@@ -8,3 +8,13 @@ spring:
     url: jdbc:postgresql://dpg-d3dtoqruibrs73bvo730-a:5432/sepaymentdb
     username: sepaymentdb_user
     password: GNueYjhDhDhxM5V5ZlTmKKYPxqs0AJIj
+
+springdoc:
+  api-docs:
+    enabled: true
+  swagger-ui:
+    enabled: true
+  info:
+    title: Se-payment API
+    description: API documentation for the Se-payment service
+    version: 1.0.0
