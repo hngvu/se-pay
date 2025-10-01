@@ -12,8 +12,13 @@ spring:
 springdoc:
   api-docs:
     enabled: true
+    path: /v3/api-docs       # endpoint JSON
   swagger-ui:
     enabled: true
+    path: /swagger-ui.html   # endpoint UI
+    operations-sorter: method
+    tags-sorter: alpha
+
   info:
     title: Se-payment API
     description: API documentation for the Se-payment service
