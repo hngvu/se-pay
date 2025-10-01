@@ -9,6 +9,10 @@ spring:
     username: sepaymentdb_user
     password: GNueYjhDhDhxM5V5ZlTmKKYPxqs0AJIj
 
+  jpa:
+    hibernate:
+      ddl-auto: update
+
 springdoc:
   api-docs:
     enabled: true
