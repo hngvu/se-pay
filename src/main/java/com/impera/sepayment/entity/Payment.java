@@ -37,6 +37,7 @@ public class Payment {
     String callBackData; // Data received from the payment gateway callback
 
     @Enumerated(EnumType.STRING)
+    @Builder.Default
     PaymentStatus status = PaymentStatus.PENDING;
 
     @CreatedDate
