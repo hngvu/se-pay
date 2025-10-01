@@ -5,7 +5,7 @@ COPY . .
 RUN mvn clean package -DskipTests
 
 # ---------- Runtime stage ----------
-FROM eclipse-temurin:17-jre-slim
+FROM openjdk:17-jdk-slim
 WORKDIR /app
 COPY --from=build /app/target/*.jar sepayment.jar
 
