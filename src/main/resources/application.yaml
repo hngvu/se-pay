@@ -5,6 +5,6 @@ spring:
     property-naming-strategy: SNAKE_CASE
 
   datasource:
-    url: jdbc:postgresql://sepaymentdb_user:GNueYjhDhDhxM5V5ZlTmKKYPxqs0AJIj@dpg-d3dtoqruibrs73bvo730-a/sepaymentdb
+    url: jdbc:postgresql://dpg-d3dtoqruibrs73bvo730-a:5432/sepaymentdb
     username: sepaymentdb_user
     password: GNueYjhDhDhxM5V5ZlTmKKYPxqs0AJIj
