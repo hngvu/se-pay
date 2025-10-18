@@ -5,9 +5,9 @@ spring:
     property-naming-strategy: SNAKE_CASE
 
   datasource:
-    url: jdbc:postgresql://masterpiece-masterpiece.b.aivencloud.com:17078/defaultdb?ssl=require
-    username: avnadmin
-    password: AVNS_ZYRRun0uv9c_yKkbmpd
+    url: ${DB_URL}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
 
   jpa:
     hibernate:
