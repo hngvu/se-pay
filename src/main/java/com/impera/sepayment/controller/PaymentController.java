@@ -13,6 +13,7 @@ import java.net.URI;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/payments")
+@CrossOrigin(origins = "*")
 public class PaymentController {
     private final PaymentService paymentService;
 
@@ -31,5 +32,10 @@ public class PaymentController {
     @GetMapping("/{ref}")
     public ResponseEntity<PaymentResponse> getPaymentByRef(@PathVariable String ref) {
         return ResponseEntity.ok(paymentService.getPaymentByRef(ref));
+    }
+
+    @GetMapping("/ping")
+    public ResponseEntity<String> ping() {
+        return ResponseEntity.ok("SE Payment Service is alive!");
     }
 }
