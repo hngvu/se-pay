@@ -28,7 +28,4 @@ springdoc:
     description: API documentation for the Se-payment service
     version: 1.0.0
 
-eureka:
-  client:
-    service-url:
-      defaultZone: ${EUREKA_SERVER_URL:http://localhost:8761}/eureka}
+alowed-origins: ${ALLOWED_ORIGINS:http://localhost:5173}
