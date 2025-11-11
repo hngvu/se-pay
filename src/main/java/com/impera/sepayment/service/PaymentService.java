@@ -9,6 +9,7 @@ import com.impera.sepayment.repository.PaymentRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -16,7 +17,6 @@ import java.util.regex.Pattern;
 @RequiredArgsConstructor
 public class PaymentService {
     private final PaymentRepository paymentRepository;
-    private final ObjectMapper objectMapper;
 
     public String init(PaymentInitRequest request) {
         var payment = paymentRepository.save(
@@ -68,5 +68,20 @@ public class PaymentService {
                         payment.getUpdatedAt()
                 ))
                 .orElseThrow(() -> new RuntimeException("Payment not found with ref: " + ref));
+    }
+
+    public List<PaymentResponse> getAllPayments() {
+        List<Payment> payments = paymentRepository.findAll();
+        return payments.stream()
+                .map(payment -> new PaymentResponse(
+                        payment.getId(),
+                        payment.getAmount(),
+                        payment.getRef(),
+                        payment.getTxnId(),
+                        payment.getStatus().toString(),
+                        payment.getCreatedAt(),
+                        payment.getUpdatedAt()
+                ))
+                .toList();
     }
 }

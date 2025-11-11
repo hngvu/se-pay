@@ -9,14 +9,15 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/v1/payments")
-@CrossOrigin(origins = "http://localhost:5173")
+@RequestMapping("/payment/payments")
 public class PaymentController {
     private final PaymentService paymentService;
 
+    @CrossOrigin(origins = "${allowed.origins}", methods = {RequestMethod.GET, RequestMethod.POST}, allowedHeaders = "*", allowCredentials = "true")
     @PostMapping("/init")
     public ResponseEntity<Void> init(@RequestBody PaymentInitRequest paymentCreateRequest) {
         return ResponseEntity.created(
@@ -29,9 +30,16 @@ public class PaymentController {
         return ResponseEntity.ok().build();
     }
 
+    @CrossOrigin(origins = "${allowed.origins}", methods = {RequestMethod.GET, RequestMethod.POST}, allowedHeaders = "*", allowCredentials = "true")
     @GetMapping("/{ref}")
     public ResponseEntity<PaymentResponse> getPaymentByRef(@PathVariable String ref) {
         return ResponseEntity.ok(paymentService.getPaymentByRef(ref));
+    }
+
+    @CrossOrigin(origins = "${allowed.origins}", methods = {RequestMethod.GET}, allowedHeaders = "*", allowCredentials = "true")
+    @GetMapping()
+    public ResponseEntity<List<PaymentResponse>> getAllPayments() {
+        return ResponseEntity.ok(paymentService.getAllPayments());
     }
 
     @GetMapping("/ping")
